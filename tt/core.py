@@ -54,7 +54,20 @@ def minimal_cmd(bool_eq_wrapper):
 def parse_args(args):
     parser = ArgumentParser(
         prog='tt',
-        description='tt is a command line utility written in Python for '
+        description='    ___      ___ \n'
+                    '  ,--.\'|_  ,--.\'|_\n'
+                    '  |  | :,\' |  | :,\'\n'
+                    '  :  : \' : :  : \' :\n'
+                    '.;__,\'  /.;__,\'  /\n'
+                    '|  |   | |  |   |\n'
+                    ':__,\'| : :__,\'| :\n'
+                    '  \'  : |__ \'  : |__\n'
+                    '  |  | \'.\'||  | \'.\'|\n'
+                    '  ;  :    ;;  :    ;\n'
+                    '  |  ,   / |  ,   /\n'
+                    '   ---`-\'   ---`-\'\n'
+
+                    'tt is a command line utility written in Python for '
                     'truth table and Karnaugh Map generation.\n'
                     'tt also provides Boolean algebra syntax checking.\n'
                     'Use tt --help for more information.',
