@@ -15,7 +15,7 @@ from tt.result_analysis import (eval_result_as_kmap_grid,
 from tt.utils import without_spaces, print_err
 
 __all__ = ['main']
-__version__ = 0.3
+__version__ = 0.4
 
 logging_format = '%(levelname)s: %(message)s'
 
