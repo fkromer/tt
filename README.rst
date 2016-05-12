@@ -248,16 +248,20 @@ Below indicates what is aimed to be included in the releases leading up to v1.0:
     * v0.4
 
         #. add indication of optimal groupings on Karnaugh Maps
-        #. improve verbose output and logging
-        #. implement minimization of equations, using Quine–McCluskey algorithm
+        #. add more Boolean operations, such as "if and only if" (<->) and "implies" (->)
+        #. add single-letter options as alternatives to the -- options currently used
         #. add option to order inputs in truth table alphabetically (--alphabetical)
-        #. introduce functionality to generate logic circuit diagrams from equations
+        #. add demo video to README, likely using asciinema
 
     * v0.5
 
-        #. if too many options are present, we can look into the idea of using argument sub-groups (already supported by Python's argparse)
-        #. add more Boolean operations, such as "if and only if" (<->) and "implies" (->)
+        #. implement minimization of equations, possibly using Quine–McCluskey algorithm
         #. product-of-sum (--pos) and sum-of-product (--sop) form generation for Boolean equations
+
+    * v0.6
+
+        #. introduce functionality to generate logic circuit diagrams from equations
+
 
 =======
 License
