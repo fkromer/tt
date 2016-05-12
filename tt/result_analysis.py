@@ -6,6 +6,9 @@ from collections import namedtuple
 from tt.bittools import get_nth_gray_code, get_int_concatenation
 
 
+KmapPoint = namedtuple('KmapPoint', ['gray_code', 'val'])
+
+
 class EquationTransformer(object):
 
     def __init__(self, bool_eq_wrapper):
@@ -34,9 +37,6 @@ def to_pos_form(low_indices, symbol_list):
 
 def to_minimal_form():
     pass
-
-
-KmapPoint = namedtuple('KmapPoint', ['gray_code', 'val'])
 
 
 def eval_result_as_kmap_grid(eval_result):
@@ -87,7 +87,7 @@ def eval_result_as_kmap_grid(eval_result):
 class ExpandedKmapGrid(object):
     """Wraps a 2-D list representation of Karnaugh Map.
 
-    For the optimization of POS and SOP forms.
+    For the optimization of Karnaugh Map groupings.
 
     """
 
