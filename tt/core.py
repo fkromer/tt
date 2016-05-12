@@ -12,6 +12,7 @@ from tt.eqtools import (BooleanEquationWrapper, GrammarError,
 from tt.fmttools import print_tt, print_kmap
 from tt.result_analysis import (eval_result_as_kmap_grid,
                                 TooFewKarnaughMapInputs)
+from tt.schema_provider import schema, schema_search_ordered_list
 from tt.utils import without_spaces, print_err
 
 __all__ = ['main']
@@ -54,24 +55,23 @@ def minimal_cmd(bool_eq_wrapper):
 def parse_args(args):
     parser = ArgumentParser(
         prog='tt',
-        description=
-        '                                  ___      ___ \n'
-        '                                ,--.\'|_  ,--.\'|_\n'
-        '                                |  | :,\' |  | :,\'\n'
-        '                                :  : \' : :  : \' :\n'
-        '                              .;__,\'  /.;__,\'  /\n'
-        '                              |  |   | |  |   |\n'
-        '                              :__,\'| : :__,\'| :\n'
-        '                                \'  : |__ \'  : |__\n'
-        '                                |  | \'.\'||  | \'.\'|\n'
-        '                                ;  :    ;;  :    ;\n'
-        '                                |  ,   / |  ,   /\n'
-        '                                 ---`-\'   ---`-\'\n'
-        '\n'
-        'tt is a command line utility written in Python for '
-        'truth table and Karnaugh Map generation.\n'
-        'tt also provides Boolean algebra syntax checking.\n'
-        'Use tt --help for more information.',
+        description='                                  ___      ___ \n'
+                    '                                ,--.\'|_  ,--.\'|_\n'
+                    '                                |  | :,\' |  | :,\'\n'
+                    '                                :  : \' : :  : \' :\n'
+                    '                             .;__,\'  /.;__,\'  /\n'
+                    '                              |  |   | |  |   |\n'
+                    '                              :__,\'| : :__,\'| :\n'
+                    '                                \'  : |__ \'  : |__\n'
+                    '                                |  | \'.\'||  | \'.\'|\n'
+                    '                                ;  :    ;;  :    ;\n'
+                    '                                |  ,   / |  ,   /\n'
+                    '                                 ---`-\'   ---`-\'\n'
+                    '\n'
+                    'tt is a command line utility written in Python for '
+                    'truth table and Karnaugh Map generation.\n'
+                    'tt also provides Boolean algebra syntax checking.\n'
+                    'Use tt --help for more information.',
         formatter_class=RawTextHelpFormatter)
     parser.add_argument(
         '--version',
@@ -79,22 +79,22 @@ def parse_args(args):
         version='v'+str(__version__),
         help='Program version and latest build date')
     parser.add_argument(
-        '--verbose',
+        '-v', '--verbose',
         action='store_true',
         help='Specify verbose output, useful for debugging.')
     parser.add_argument(
-        '--kmap',
+        '-k', '--kmap',
         action='store_true',
         help='Generate kmap of specified boolean equation.\n')
     parser.add_argument(
-        '--intermediates',
+        '-i', '--intermediates',
         action='store_true',
         help='Indicates that intermediate Boolean expressions should be\n'
              'displayed with their own column in the truth table.\n'
              'Not valid with the --kmap option.\n'
              'NOTE: Not yet implemented.')
     parser.add_argument(
-        '--table',
+        '-t', '--table',
         action='store_true',
         help='Generate the truth table for the passed equation.')
     parser.add_argument(
@@ -118,25 +118,19 @@ def parse_args(args):
     parser.add_argument(
         dest='equation',
         nargs='*',
-        help='Boolean equation to be analyzed.\n'
-             'Can be optionally enclosed in double-quotes, which is useful '
-             'for not having to escape the pipe character in your terminal.\n'
-             'Boolean operations can be specified using plain English or '
-             'their common symbolic equivalents.\n'
-             'For example, the two equations:\n'
-             '\t(1) out = operand_1 and operand_2 or operand_3\n'
-             '\t(2) "out = operand_1 && operand_2 || operand_3"\n'
-             'Would evaluate identically.\n'
-             '\n'
-             'Supported Boolean operations are:\n'
-             '\tnot\n'
-             '\txor\n'
-             '\txnor\n'
-             '\tand\n'
-             '\tnand\n'
-             '\tor\n'
-             '\tnor\n')
-
+        help=('Boolean equation to be analyzed.\n'
+              'Can be optionally enclosed in double-quotes, which is useful '
+              'for not having to escape the pipe character in your terminal.\n'
+              'Boolean operations can be specified using plain English or '
+              'their common symbolic equivalents.\n'
+              'For example, the two equations:\n'
+              '(1) out = operand_1 and operand_2 or operand_3\n'
+              '(2) "out = operand_1 && operand_2 || operand_3"\n'
+              'would evaluate identically.\n'
+              '\n'
+              'Supported Boolean operations (with valid identifiers) are:\n'
+              '{}'.format('\t'+'\n\t'.join(str(schema[op]) for
+                          op in schema_search_ordered_list))))
     return parser.parse_args(args)
 
 

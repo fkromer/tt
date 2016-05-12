@@ -8,13 +8,17 @@ import logging as log
 # === Wrapper Classes =========================================================
 class BooleanOperator(object):
 
-    def __init__(self, precedence_in, bool_func_in, *args):
+    def __init__(self, precedence_in, bool_func_in, nice_name_in, *args):
         self.precedence = precedence_in
         self.bool_func = bool_func_in
+        self.nice_name = nice_name_in
         self.equivalent_symbols = list(args)
 
     def result(self, a, b):
         return self.bool_func(a, b)
+
+    def __str__(self):
+        return self.nice_name + ' (' + ', '.join(self.equivalent_symbols) + ')'
 
 
 # === Boolean Functions =======================================================
@@ -68,24 +72,31 @@ SYM_NOR = '%'
 schema = {
     SYM_NOT: BooleanOperator(precedence['HIGH'],
                              tt_uncallable,
+                             'not',
                              'not', 'NOT', '~', '!'),
     SYM_XOR: BooleanOperator(precedence['MEDIUM'],
                              tt_xor,
+                             'xor',
                              'xor', 'XOR'),
     SYM_XNOR: BooleanOperator(precedence['MEDIUM'],
                               tt_xnor,
+                              'xnor/iff',
                               'xnor', 'XNOR', 'nxor', 'NXOR', 'iff', '<->'),
     SYM_AND: BooleanOperator(precedence['LOW'],
                              tt_and,
+                             'and',
                              'and', 'AND', '&&', '&', '/\\'),
     SYM_NAND: BooleanOperator(precedence['LOW'],
                               tt_nand,
+                              'nand',
                               'nand', 'NAND'),
     SYM_OR: BooleanOperator(precedence['ZERO'],
                             tt_or,
+                            'or',
                             'or', 'OR', '||', '|', '\\/'),
     SYM_NOR: BooleanOperator(precedence['ZERO'],
                              tt_nor,
+                             'nor',
                              'nor', 'NOR')
 }
 
