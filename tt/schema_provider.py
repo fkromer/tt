@@ -4,18 +4,6 @@ Boolean equations in the scheme used by tt.
 
 import logging as log
 
-__all__ = ['BooleanOperator',
-           'schema',
-           'schema_search_ordered_list',
-           'precedence',
-           'SYM_NOT',
-           'SYM_NAND',
-           'SYM_AND',
-           'SYM_OR',
-           'SYM_NOR',
-           'SYM_XNOR',
-           'SYM_XOR']
-
 
 # === Wrapper Classes =========================================================
 class BooleanOperator(object):
@@ -86,7 +74,7 @@ schema = {
                              'xor', 'XOR'),
     SYM_XNOR: BooleanOperator(precedence['MEDIUM'],
                               tt_xnor,
-                              'xnor', 'XNOR', 'nxor', 'NXOR'),
+                              'xnor', 'XNOR', 'nxor', 'NXOR', 'iff', '<->'),
     SYM_AND: BooleanOperator(precedence['LOW'],
                              tt_and,
                              'and', 'AND', '&&', '&', '/\\'),

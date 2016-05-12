@@ -228,6 +228,43 @@ class TestCondenseExpression(unittest.TestCase):
                 'A': 'operand'
             })
 
+    def test_iff_symbol(self):
+        self.helper_no_throw_test_condense_expression(
+            raw_expr='op1 <-> op2',
+            expected_expr='A@B',
+            expected_symbol_mapping={
+                'A': 'op1',
+                'B': 'op2'
+            })
+
+    def test_iff_symbol_no_space(self):
+        self.helper_no_throw_test_condense_expression(
+            raw_expr='op1<->op2',
+            expected_expr='A@B',
+            expected_symbol_mapping={
+                'A': 'op1',
+                'B': 'op2'
+            })
+
+    def test_iff_plain_english(self):
+        self.helper_no_throw_test_condense_expression(
+            raw_expr='op1 iff op2',
+            expected_expr='A@B',
+            expected_symbol_mapping={
+                'A': 'op1',
+                'B': 'op2'
+            })
+
+    def test_iff_nested(self):
+        self.helper_no_throw_test_condense_expression(
+            raw_expr='(op1 <-> op2)<->op3',
+            expected_expr='(A@B)@C',
+            expected_symbol_mapping={
+                'A': 'op1',
+                'B': 'op2',
+                'C': 'op3'
+            })
+
     # === Expect-throws tests =================================================
     def test_one_operation_plain_english(self):
         self.helper_does_throw_test_condense_expression(
@@ -417,3 +454,9 @@ class TestCondenseExpression(unittest.TestCase):
             exception_class=BadSymbolError,
             expected_error_pos=15,
             output_symbol='out')
+
+    def test_consecutive_iff_symbolic(self):
+        self.helper_does_throw_test_condense_expression(
+            bad_expr='op1 <->-> op2',
+            exception_class=BadSymbolError,
+            expected_error_pos=7)
