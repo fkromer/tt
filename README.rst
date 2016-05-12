@@ -261,6 +261,7 @@ Below indicates what is aimed to be included in the releases leading up to v1.0:
     * v0.6
 
         #. introduce functionality to generate logic circuit diagrams from equations
+        #. add implicit output variables
 
 
 =======
