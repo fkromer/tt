@@ -4,6 +4,7 @@
 from collections import namedtuple
 
 from tt.bittools import get_nth_gray_code, get_int_concatenation
+from tt.utils import init_2d_list
 
 
 KmapPoint = namedtuple('KmapPoint', ['gray_code', 'val'])
@@ -84,6 +85,82 @@ def eval_result_as_kmap_grid(eval_result):
     return kmap_grid
 
 
+def get_kmap_groupings(kmap_grid):
+    """Get rectangular groups of high values in a Kmap grid.
+
+    Uses the algorithm described at:
+    http://www.montefiore.ulg.ac.be/~pierard/rectangles/
+
+    """
+
+    def kmap_val(r, c):
+        return kmap_grid[r][c].val
+
+    w = len(kmap_grid[0])
+    h = len(kmap_grid)
+
+    dN = init_2d_list(w, h)
+    dS = init_2d_list(w, h)
+
+    groups = []
+
+    # init dN
+    for col in range(w):
+        dN[0][col] = 0 if kmap_val(0, col) else -1
+
+    for row in range(1, h):
+        for col in range(w):
+            if not kmap_val(row, col):
+                dN[row][col] = -1
+            else:
+                dN[row][col] = dN[row - 1][col] + 1
+
+    # init dS
+    for col in range(w):
+        dS[h - 1][col] = 0 if kmap_val(h - 1, col) else -1
+
+    for row in range(h - 2, -1, -1):
+        for col in range(w):
+            if not kmap_val(row, col):
+                dS[row][col] = -1
+            else:
+                dS[row][col] = dS[row + 1][col] + 1
+
+    # main algorithm
+    for col in range(w - 1, -1, -1):
+        maxS = h
+        for row in range(h - 1, -1, -1):
+            maxS += 1
+            if (kmap_val(row, col) and (
+                    col == 0 or not kmap_val(row, col - 1))):
+                N = dN[row][col]
+                S = dS[row][col]
+                width = 1
+                while (col + width) < w and kmap_val(row, col + width):
+                    nextN = dN[row][col + width]
+                    nextS = dS[row][col + width]
+                    if (nextN < N) or (nextS < S):
+                        if S < maxS:
+                            groups.append((row - N, col, width, N + S + 1))
+                        if nextN < N:
+                            N = nextN
+                        if nextS < S:
+                            S = nextS
+                    width += 1
+                if S < maxS:
+                    groups.append((row - N, col, width, N + S + 1))
+                maxS = 0
+
+    # groups are in format (top left row, top left col, width, height),
+    # we now convert into lists of lists of instances of KmapPoints
+    kmap_point_list = [[(r, c)
+                        for r in range(group[0], group[0] + group[3])
+                        for c in range(group[1], group[1] + group[2])]
+                       for group in groups]
+
+    return kmap_point_list
+
+
 class ExpandedKmapGrid(object):
     """Wraps a 2-D list representation of Karnaugh Map.
 
@@ -94,7 +171,7 @@ class ExpandedKmapGrid(object):
     def __init__(self, kmap):
         self.min_row = -len(kmap[0][0])
         self.min_col = 0
-        self.max_row = 0
+        self.max_row = -2 * self.min_row
         self.max_col = 0
 
     def get_val(r, c):
