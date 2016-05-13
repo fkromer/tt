@@ -10,24 +10,6 @@ from tt.utils import init_2d_list
 KmapPoint = namedtuple('KmapPoint', ['gray_code', 'val'])
 
 
-class EquationTransformer(object):
-
-    def __init__(self, bool_eq_wrapper):
-        self.bool_eq_wrapper = bool_eq_wrapper
-
-    def get_eq_from_expr(self, expr):
-        return self.bool_eq_wrapper.output_symbol + ' = ' + expr
-
-    def get_sop_form(self):
-        pass
-
-    def get_pos_form(self):
-        pass
-
-    def get_minimal_form(self):
-        pass
-
-
 class PointGroup(object):
     """TODO
 
