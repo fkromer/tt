@@ -42,21 +42,6 @@ class PointGroup(object):
                             self.h - split_on_h, self.w)
         return group1, group2
 
-    def __str__(self):
-        return str(self.get_point_list())
-
-
-def to_sop_form(high_indices, symbol_list):
-    pass
-
-
-def to_pos_form(low_indices, symbol_list):
-    pass
-
-
-def to_minimal_form():
-    pass
-
 
 def eval_result_as_kmap_grid(eval_result):
     """Convert an ``EvaluationResultWrapper`` instance to a Karnuagh Map grid.
