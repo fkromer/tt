@@ -46,10 +46,23 @@ class PointGroup(object):
                 for c in range(self.c, self.c + self.w)]
 
     def split_by_width(self, new_width):
-        pass
+        split_on_w = self.w - new_width
+        group1 = PointGroup(self.r, self.c,
+                            self.h, self.w - split_on_w)
+        group2 = PointGroup(self.r, self.c + split_on_w,
+                            self.h, self.w - split_on_w)
+        return group1, group2
 
     def split_by_height(self, new_height):
-        pass
+        split_on_h = self.h - new_height
+        group1 = PointGroup(self.r, self.c,
+                            self.h - split_on_h, self.w)
+        group2 = PointGroup(self.r + split_on_h, self.c,
+                            self.h - split_on_h, self.w)
+        return group1, group2
+
+    def __str__(self):
+        return str(self.get_point_list())
 
 
 def to_sop_form(high_indices, symbol_list):
