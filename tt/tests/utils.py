@@ -26,10 +26,6 @@ def redirected_stream(stream_name):
 
 
 # === Generalized test cases ==================================================
-class FunctionalTestAssertions(object):
-    pass
-
-
 class FunctionalTestCase(unittest.TestCase):
 
     def functional_test_helper(self, cl_args=[],
