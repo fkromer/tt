@@ -169,13 +169,13 @@ def main(args=None):
         opts = parse_args(args)
 
         verbose = opts.verbose
+        table = opts.table
         kmap = opts.kmap
         optimized = opts.optimized
-        intermediates = opts.intermediates
-        table = opts.table
-        minimal = opts.minimal
-        sop = opts.sop
-        pos = opts.pos
+        intermediates = False  # opts.intermediates
+        minimal = False  # opts.minimal
+        sop = False  # opts.sop
+        pos = False  # opts.pos
         equation = ' '.join(opts.equation)
 
         if verbose:
