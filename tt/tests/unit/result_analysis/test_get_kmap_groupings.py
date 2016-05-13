@@ -30,7 +30,7 @@ class TestGetKmapGroupings(unittest.TestCase):
                             msg='Non-pow2 dimension(s): '+str(group))
 
             # make sure all values are covered in the original grid
-            for point in group.get_point_list():
+            for point in group.point_list:
                 result_grid[point[0]][point[1]] = 1
 
         self.assertEqual(value_grid, result_grid)
