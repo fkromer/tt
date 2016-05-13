@@ -208,7 +208,6 @@ def get_kmap_groupings(kmap_grid):
             continue
         pow2_partitioned_groups.append(group)
 
-    print(list(str(g) for g in pow2_partitioned_groups))
     return pow2_partitioned_groups
 
 
