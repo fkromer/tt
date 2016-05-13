@@ -84,48 +84,48 @@ def parse_args(args):
         '--version',
         action='version',
         version='v'+str(__version__),
-        help='Program version and latest build date')
+        help='program version')
     parser.add_argument(
         '-v', '--verbose',
         action='store_true',
-        help='Specify verbose output, useful for debugging.')
-    parser.add_argument(
-        '-k', '--kmap',
-        action='store_true',
-        help='Generate kmap of specified boolean equation.\n')
-    parser.add_argument(
-        '-o', '--optimized',
-        action='store_true',
-        help='Optimize the input. Currently only works with the -k option.\n')
-    parser.add_argument(
-        '-i', '--intermediates',
-        action='store_true',
-        help='Indicates that intermediate Boolean expressions should be\n'
-             'displayed with their own column in the truth table.\n'
-             'Not valid with the --kmap option.\n'
-             'NOTE: Not yet implemented.')
+        help='specify verbose output, useful for debugging.')
     parser.add_argument(
         '-t', '--table',
         action='store_true',
-        help='Generate the truth table for the passed equation.')
+        help='generate the truth table for the passed equation.')
     parser.add_argument(
-        '--minimal',
+        '-k', '--kmap',
         action='store_true',
-        help='Use this option to modify the --pos and --sop commands to\n'
-             'get the minimal product of sums or sum of products form.\n'
-             'NOTE: Not yet implemented.')
+        help='generate kmap of specified boolean equation.\n')
     parser.add_argument(
-        '--sop',
+        '-o', '--optimized',
         action='store_true',
-        help='Generate the minimal sum-of-products form of the passed\n'
-             'equation.\n'
-             'NOTE: Not yet implemented.')
-    parser.add_argument(
-        '--pos',
-        action='store_true',
-        help='Generate the minimal product-of-sums form of the passed\n'
-             'equation.\n'
-             'NOTE: Not yet implemented.')
+        help='optimize the input. Currently only works with the -k option.\n')
+    # parser.add_argument(
+    #     '-i', '--intermediates',
+    #     action='store_true',
+    #     help='indicates that intermediate Boolean expressions should be\n'
+    #          'displayed with their own column in the truth table.\n'
+    #          'Not valid with the --kmap option.\n'
+    #          'NOTE: not yet implemented.')
+    # parser.add_argument(
+    #     '--minimal',
+    #     action='store_true',
+    #     help='use this option to modify the --pos and --sop commands to\n'
+    #          'get the minimal product of sums or sum of products form.\n'
+    #          'NOTE: not yet implemented.')
+    # parser.add_argument(
+    #     '--sop',
+    #     action='store_true',
+    #     help='generate the minimal sum-of-products form of the passed\n'
+    #          'equation.\n'
+    #          'NOTE: not yet implemented.')
+    # parser.add_argument(
+    #     '--pos',
+    #     action='store_true',
+    #     help='generate the minimal product-of-sums form of the passed\n'
+    #          'equation.\n'
+    #          'NOTE: not yet implemented.')
     parser.add_argument(
         dest='equation',
         nargs='*',
