@@ -1,5 +1,6 @@
 """A module for simple manipulation of bits.
 """
+import math
 
 
 def get_int_concatenation(int1, int2, int_size):
@@ -71,6 +72,20 @@ def is_pow2(x):
 
     """
     return x and not (x & (x - 1))
+
+
+def get_closest_smaller_pow2(x):
+    """Get the closest power of 2.
+
+    Args:
+        x (int): The reference number.
+
+    Returns:
+        int: The closest power of 2 less than or equal to ``x``.
+
+    """
+    # there' sprobably a better way of doing this
+    return 2 ** int(math.log2(x))
 
 
 def get_bit_string(n, num_chars=None):
