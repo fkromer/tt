@@ -195,4 +195,3 @@ class TestGetKmapGroupings(unittest.TestCase):
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             ]
         )
-
