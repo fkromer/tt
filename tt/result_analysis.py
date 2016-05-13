@@ -3,7 +3,8 @@
 
 from collections import namedtuple
 
-from tt.bittools import get_nth_gray_code, get_int_concatenation
+from tt.bittools import (get_nth_gray_code, get_int_concatenation, is_pow2,
+                         get_closest_smaller_pow2)
 from tt.utils import init_2d_list
 
 
@@ -25,6 +26,29 @@ class EquationTransformer(object):
         pass
 
     def get_minimal_form(self):
+        pass
+
+
+class PointGroup(object):
+    """TODO
+
+    """
+
+    def __init__(self, topleft_r_in, topleft_c_in, h_in, w_in):
+        self.r = topleft_r_in
+        self.c = topleft_c_in
+        self.h = h_in
+        self.w = w_in
+
+    def get_point_list(self):
+        return [(r, c)
+                for r in range(self.r, self.r + self.h)
+                for c in range(self.c, self.c + self.w)]
+
+    def split_by_width(self, new_width):
+        pass
+
+    def split_by_height(self, new_height):
         pass
 
 
@@ -102,6 +126,7 @@ def get_kmap_groupings(kmap_grid):
     dN = init_2d_list(w, h)
     dS = init_2d_list(w, h)
 
+    # groups are in format (top left row, top left col, width, height)
     groups = []
 
     # init dN
@@ -126,7 +151,7 @@ def get_kmap_groupings(kmap_grid):
             else:
                 dS[row][col] = dS[row + 1][col] + 1
 
-    # main algorithm
+    # main partitioning algorithm
     for col in range(w - 1, -1, -1):
         maxS = h
         for row in range(h - 1, -1, -1):
@@ -141,24 +166,48 @@ def get_kmap_groupings(kmap_grid):
                     nextS = dS[row][col + width]
                     if (nextN < N) or (nextS < S):
                         if S < maxS:
-                            groups.append((row - N, col, width, N + S + 1))
+                            groups.append(
+                                PointGroup(row - N, col, N + S + 1, width))
                         if nextN < N:
                             N = nextN
                         if nextS < S:
                             S = nextS
                     width += 1
                 if S < maxS:
-                    groups.append((row - N, col, width, N + S + 1))
+                    groups.append(
+                        PointGroup(row - N, col, N + S + 1, width))
                 maxS = 0
 
-    # groups are in format (top left row, top left col, width, height),
-    # we now convert into lists of lists of instances of KmapPoints
-    kmap_point_list = [[(r, c)
-                        for r in range(group[0], group[0] + group[3])
-                        for c in range(group[1], group[1] + group[2])]
-                       for group in groups]
+    # we now have rectangular groupings of the Kmap, but they are not
+    # guaranteed to have power-of-2 dimensions (which is necessary for proper
+    # optimization)
+    pow2_partitioned_groups = []
+    while groups:
+        group = groups.pop()
+        if not is_pow2(group.w):
+            pow2_w = get_closest_smaller_pow2(group.w)
+            new_group1, new_group2 = group.split_by_width(pow2_w)
+            groups.append(new_group1)
+            groups.append(new_group2)
+            continue
+        if not is_pow2(group.h):
+            pow2_h = get_closest_smaller_pow2(group.h)
+            new_group1, new_group2 = group.split_by_height(pow2_h)
+            groups.append(new_group1)
+            groups.append(new_group2)
+            continue
+        pow2_partitioned_groups.append(group)
 
-    return kmap_point_list
+    print(pow2_partitioned_groups)
+    return pow2_partitioned_groups
+
+
+def prune_kmap_groupings():
+    """TODO
+
+    """
+
+    pass
 
 
 class ExpandedKmapGrid(object):
