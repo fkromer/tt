@@ -1,21 +1,10 @@
-"""A module for extracting and manipulating information from Boolean equations.
-"""
+"""Extract and manipulate information from Boolean equations."""
 
 import itertools
 
 from tt.utils import print_err, without_spaces, matching_indices
 from tt.schema_provider import (schema, schema_search_ordered_list, SYM_NOT,
                                 SYM_XOR)
-
-__all__ = ['EvaluationResultWrapper',
-           'BooleanEquationWrapper',
-           'infix_to_postfix',
-           'eval_postfix_expr',
-           'TooManySymbolsError',
-           'GrammarError',
-           'ExpressionOrderError',
-           'BadParenPositionError',
-           'BadSymbolError']
 
 
 # === Wrapper Classes =========================================================
