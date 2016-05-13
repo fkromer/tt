@@ -1,6 +1,13 @@
 """A module for simple manipulation of bits."""
 
 import math
+import sys
+
+# Python 2 has no native log2 function in the math package
+if sys.version_info < (3, 0):
+    log2 = lambda x: math.log(x, 2)  # noqa
+else:
+    log2 = math.log2
 
 
 def get_int_concatenation(int1, int2, int_size):
@@ -99,7 +106,7 @@ def get_closest_smaller_pow2(x):
 
     """
     # there' sprobably a better way of doing this
-    return 2 ** int(math.log2(x))
+    return 2 ** int(log2(x))
 
 
 def get_bit_string(n, num_chars=None):
