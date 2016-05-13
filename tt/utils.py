@@ -15,3 +15,7 @@ def without_spaces(the_str):
 
 def matching_indices(the_list, search_val):
     return [pos for pos, val in enumerate(the_list) if val == search_val]
+
+
+def init_2d_list(w, h, init_val=None):
+    return [[init_val]*w for _ in range(h)]
