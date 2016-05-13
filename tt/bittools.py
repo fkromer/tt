@@ -60,6 +60,19 @@ def get_nth_gray_code(n):
     return n ^ (n >> 1)
 
 
+def is_pow2(x):
+    """Returns if input is a power of 2.
+
+    Args:
+        x (int): The number to test.
+
+    Returns:
+        bool: True if ``x`` is a power of 2, otherwise false.
+
+    """
+    return x and not (x & (x - 1))
+
+
 def get_bit_string(n, num_chars=None):
     """Convert ``n`` to a binary string representation.
 
