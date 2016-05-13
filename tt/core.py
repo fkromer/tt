@@ -193,16 +193,6 @@ def main(args=None):
             raise ValueError('A non-empty equation is required. '
                              'Try using the --help option.')
 
-        # temporary, until these features are implemented
-        if intermediates:
-            raise NotImplementedError('--intermediates')
-        if minimal:
-            raise NotImplementedError('--minimal')
-        if sop:
-            raise NotImplementedError('--sop')
-        if pos:
-            raise NotImplementedError('--pos')
-
         if intermediates and not table:
             raise ValueError(
                 'The -i/--intermediates option must be used in conjunction\n'
