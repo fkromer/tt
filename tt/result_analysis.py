@@ -178,28 +178,15 @@ def get_kmap_groupings(kmap_grid):
     return pow2_partitioned_groups
 
 
+def get_merged_wrapped_groups(point_group_list):
+    pass
+
+
 def prune_kmap_groupings():
     """TODO.
 
     """
     pass
-
-
-class ExpandedKmapGrid(object):
-    """Wraps a 2-D list representation of Karnaugh Map.
-
-    For the optimization of Karnaugh Map groupings.
-
-    """
-
-    def __init__(self, kmap):
-        self.min_row = -len(kmap[0][0])
-        self.min_col = 0
-        self.max_row = -2 * self.min_row
-        self.max_col = 0
-
-    def get_val(r, c):
-        pass
 
 
 class TooFewKarnaughMapInputs(Exception):
