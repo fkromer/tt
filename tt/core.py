@@ -96,11 +96,11 @@ def parse_args(args):
     parser.add_argument(
         '-k', '--kmap',
         action='store_true',
-        help='generate kmap of specified boolean equation.\n')
+        help='generate kmap of specified boolean equation.')
     parser.add_argument(
         '-o', '--optimized',
         action='store_true',
-        help='optimize the input. Currently only works with the -k option.\n')
+        help='optimize the input. Currently only works with the -k option.')
     # parser.add_argument(
     #     '-i', '--intermediates',
     #     action='store_true',
