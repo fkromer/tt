@@ -1,5 +1,5 @@
-"""Generation of formatted truth tables and Karnuagh Maps.
-"""
+"""Generation of formatted truth tables and Karnuagh Maps."""
+
 from __future__ import print_function, division
 
 import itertools
@@ -28,8 +28,7 @@ def get_fancy_row_separator(col_widths):
 
 
 def get_width_list(items, width_padding):
-    """Get a list of the widths corresponding to ``items``, adjusted by
-    ``width_padding``.
+    """Get a padding-adjusted list of the widths corresponding to ``items``.
 
     Args:
         items (List): A list of objects upon which ``len`` can be called.

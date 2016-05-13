@@ -1,5 +1,4 @@
-"""A module used for transforming evaluation results into different forms.
-"""
+"""A module used for transforming evaluation results into different forms."""
 
 from collections import namedtuple
 
@@ -78,8 +77,7 @@ def to_minimal_form():
 
 
 def eval_result_as_kmap_grid(eval_result):
-    """Convert an ``EvaluationResultWrapper`` instance to a representation of a
-    Karnuagh Map.
+    """Convert an ``EvaluationResultWrapper`` instance to a Karnuagh Map grid.
 
     Args:
         eval_result (EvaluationResultWrapper): The result instance which will
@@ -129,7 +127,6 @@ def get_kmap_groupings(kmap_grid):
     http://www.montefiore.ulg.ac.be/~pierard/rectangles/
 
     """
-
     def kmap_val(r, c):
         return kmap_grid[r][c].val
 
@@ -211,15 +208,14 @@ def get_kmap_groupings(kmap_grid):
             continue
         pow2_partitioned_groups.append(group)
 
-    print(pow2_partitioned_groups)
+    print(list(str(g) for g in pow2_partitioned_groups))
     return pow2_partitioned_groups
 
 
 def prune_kmap_groupings():
-    """TODO
+    """TODO.
 
     """
-
     pass
 
 
@@ -244,4 +240,5 @@ class TooFewKarnaughMapInputs(Exception):
     """Error for when a Karnaugh Map is attempted with less than 2 inputs.
 
     """
+
     pass

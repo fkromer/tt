@@ -1,6 +1,4 @@
-"""Information about the symbols used in intermediate transformations of
-Boolean equations in the scheme used by tt.
-"""
+"""Meta-data for tt boolean operations."""
 
 import logging as log
 

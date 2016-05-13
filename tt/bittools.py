@@ -1,5 +1,5 @@
-"""A module for simple manipulation of bits.
-"""
+"""A module for simple manipulation of bits."""
+
 import math
 
 
@@ -58,7 +58,7 @@ def get_nth_gray_code(n):
 
 
 def is_pow2(x):
-    """Returns if input is a power of 2.
+    """Return whether the input is a power of 2.
 
     Args:
         x (int): The number to test.

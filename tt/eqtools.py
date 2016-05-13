@@ -20,7 +20,6 @@ __all__ = ['EvaluationResultWrapper',
 
 # === Wrapper Classes =========================================================
 class EvaluationResultWrapper(object):
-
     """A simple wrapper around the evaluation results of a Boolean equation.
 
     Attributes:
@@ -67,7 +66,6 @@ class EvaluationResultWrapper(object):
 
 
 class BooleanEquationWrapper(object):
-
     """A wrapper of a Boolean equation, with parsing/evaluation functionality.
 
     Args:
@@ -123,7 +121,7 @@ class BooleanEquationWrapper(object):
                 for key in self.get_unique_symbol_list()]
 
     def get_unique_symbol_list(self):
-        """Get unique symbols to which the variable words are mapped
+        """Get unique symbols to which the variable words are mapped.
 
         Returns:
             List[str]: Sorted list of the unique, single-character values to
@@ -518,7 +516,6 @@ def is_valid_operand_char_non_leading(c):
 
 # === Custom exception types ==================================================
 class TooManySymbolsError(Exception):
-
     """Error for when too many symbols were in the user's equation.
 
     Because user-entered variable names are mapped to single characters for
@@ -535,7 +532,6 @@ class TooManySymbolsError(Exception):
 
 
 class GrammarError(Exception):
-
     """Error for problems in equation parsing.
 
     This error type adds information for indicating the expression or
@@ -571,7 +567,6 @@ class GrammarError(Exception):
 
 
 class BadSymbolError(GrammarError):
-
     """Error for an unexpected symbol in variable names or operation words.
 
     Examples:
@@ -589,7 +584,6 @@ class BadSymbolError(GrammarError):
 
 
 class ExpressionOrderError(GrammarError):
-
     """Error for bad order of operands/operations.
 
     Examples:
@@ -607,7 +601,6 @@ class ExpressionOrderError(GrammarError):
 
 
 class BadParenPositionError(GrammarError):
-
     """Error for improper positioning of parentheses.
 
     Examples:
@@ -620,7 +613,6 @@ class BadParenPositionError(GrammarError):
 
 
 class UnbalancedParenError(GrammarError):
-
     """Error for improper balancing of parentheses.
 
     Examples:
