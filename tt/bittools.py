@@ -23,29 +23,15 @@ def get_int_concatenation(int1, int2, int_size):
             the most significant non-zero bit in ``int2``.
 
     Examples:
-    >>>x = get_int_concatentation(1, 2, 2)
-    >>>bin(x)
+    >>> x = get_int_concatentation(1, 2, 2)
+    >>> bin(x)
     '0b110'
-    >>>x = get_int_concatentation(1, 2, 3)
-    >>>bin(x)
+    >>> x = get_int_concatentation(1, 2, 3)
+    >>> bin(x)
     '0b1010'
 
     """
     return (int1 << int_size) | int2
-
-
-def get_parity(x):
-    """Get the bit parity of ``x``.
-
-    Notes:
-        Not currently used, but this may be useful in the future.
-
-    """
-    c = 0
-    while x:
-        c += 1
-        x &= x - 1
-    return c
 
 
 def get_nth_gray_code(n):
@@ -56,6 +42,16 @@ def get_nth_gray_code(n):
 
     Returns:
         int: The nth gray code.
+
+    Examples:
+    >>> get_nth_gray_code(0)
+    0
+    >>> get_nth_gray_code(1)
+    1
+    >>> get_nth_gray_code(2)
+    3
+    >>> get_nth_gray_code(3)
+    2
 
     """
     return n ^ (n >> 1)
@@ -68,10 +64,18 @@ def is_pow2(x):
         x (int): The number to test.
 
     Returns:
-        bool: True if ``x`` is a power of 2, otherwise false.
+        bool: True if ``x`` is a power of 2, otherwise False.
+
+    Examples:
+    >>> is_pow2(1)
+    True
+    >>> is_pow2(45)
+    False
+    >>> is_pow2(512)
+    True
 
     """
-    return x and not (x & (x - 1))
+    return bool(x) and not (x & (x - 1))
 
 
 def get_closest_smaller_pow2(x):
@@ -82,6 +86,16 @@ def get_closest_smaller_pow2(x):
 
     Returns:
         int: The closest power of 2 less than or equal to ``x``.
+
+    Examples:
+    >>> get_closest_smaller_pow2(63)
+    32
+    >>> get_closest_smaller_pow2(64)
+    64
+    >>> get_closest_smaller_pow2(65)
+    64
+    >>> get_closest_smaller_pow2(129)
+    128
 
     """
     # there' sprobably a better way of doing this
@@ -106,3 +120,17 @@ def get_bit_string(n, num_chars=None):
     """
     fmt_str = '{:0' + (str(num_chars) if num_chars is not None else '') + 'b}'
     return fmt_str.format(n)
+
+
+# def get_parity(x):
+#     """Get the bit parity of ``x``.
+
+#     Notes:
+#         Not currently used, but this may be useful in the future.
+
+#     """
+#     c = 0
+#     while x:
+#         c += 1
+#         x &= x - 1
+#     return c
