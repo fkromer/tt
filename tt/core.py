@@ -11,7 +11,8 @@ from tt.eqtools import (BooleanEquationWrapper, GrammarError,
                         TooManySymbolsError)
 from tt.fmttools import print_tt, print_kmap
 from tt.result_analysis import (eval_result_as_kmap_grid,
-                                TooFewKarnaughMapInputs)
+                                TooFewKarnaughMapInputs,
+                                get_kmap_groupings)
 from tt.schema_provider import schema, schema_search_ordered_list
 from tt.utils import without_spaces, print_err
 
@@ -34,10 +35,16 @@ def table_intermediates_cmd(bool_eq_wrapper):
 def kmap_cmd(bool_eq_wrapper):
     eval_result = bool_eq_wrapper.eval_result
     kmap = eval_result_as_kmap_grid(eval_result)
-
     print_kmap(eval_result.input_symbols, kmap)
-
     print()
+
+
+def optimized_kmap_cmd(bool_eq_wrapper):
+    eval_result = bool_eq_wrapper.eval_result
+    kmap = eval_result_as_kmap_grid(eval_result)
+    get_kmap_groupings(kmap)
+
+    print('opt kmap (PLACEHOLDER)')
 
 
 def sop_cmd(bool_eq_wrapper):
@@ -86,6 +93,10 @@ def parse_args(args):
         '-k', '--kmap',
         action='store_true',
         help='Generate kmap of specified boolean equation.\n')
+    parser.add_argument(
+        '-o', '--optimized',
+        action='store_true',
+        help='Optimize the input. Currently only works with the -k option.\n')
     parser.add_argument(
         '-i', '--intermediates',
         action='store_true',
@@ -159,6 +170,7 @@ def main(args=None):
 
         verbose = opts.verbose
         kmap = opts.kmap
+        optimized = opts.optimized
         intermediates = opts.intermediates
         table = opts.table
         minimal = opts.minimal
@@ -192,8 +204,14 @@ def main(args=None):
             raise NotImplementedError('--pos')
 
         if intermediates and not table:
-            raise ValueError('The --intermediates option must be used in\n'
-                             'conjunction with the --table option.')
+            raise ValueError(
+                'The -i/--intermediates option must be used in conjunction\n'
+                'with the -t/--table option.')
+
+        if optimized and not kmap:
+            raise ValueError(
+                'The -o/--optimized option must be used in conjunction with\n'
+                'the -k/--kmap option.')
 
         bool_eq_wrapper = BooleanEquationWrapper(equation)
 
@@ -203,7 +221,10 @@ def main(args=None):
             else:
                 table_cmd(bool_eq_wrapper)
         if kmap:
-            kmap_cmd(bool_eq_wrapper)
+            if optimized:
+                optimized_kmap_cmd(bool_eq_wrapper)
+            else:
+                kmap_cmd(bool_eq_wrapper)
         if pos:
             pos_cmd(bool_eq_wrapper)
         if sop:
